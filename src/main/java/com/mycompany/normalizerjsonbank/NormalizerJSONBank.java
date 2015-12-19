@@ -22,9 +22,9 @@ public class NormalizerJSONBank {
         return factory;
     }
     
-    public static String normalizeXML(String message){
+    public static String normalizeJSON(String message){
         String[] token = message.split("[:,}]");
-        String result = token[3]+">>>"+token[1];
+        String result = token[3]+">>>"+token[1]+">>>bankJSON";
         return result;
     }
     
@@ -42,7 +42,7 @@ public class NormalizerJSONBank {
             public void handleDelivery(String consumerTag, Envelope envelope, AMQP.BasicProperties properties, byte[] body) throws IOException {
                 String message = new String(body, "UTF-8");
                 System.out.println(" [x] Received '" + message + "'");
-                message = normalizeXML(message);
+                message = normalizeJSON(message);
                 System.out.println(" [x] Result '" + message + "'");
                 Connection connection2 = getConnection().newConnection();
                 Channel channel2 = connection2.createChannel();
